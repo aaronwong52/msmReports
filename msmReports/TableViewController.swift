@@ -12,16 +12,21 @@ class TableViewController: UITableViewController {
 
     // for shift start
     @IBAction func startDatePicker(_ sender: Any) {
+        let date = DateFormatter();
+        date.dateStyle = DateFormatter.Style.short;
+        date.timeStyle = DateFormatter.Style.short;
+        
+    }
+    @IBAction func endDatePicker(_ sender: Any) {
     }
     private var showStartDate = false;
-    private func toggleStartDate() {
-        showStartDate = !showStartDate;
-        tableView.beginUpdates();
-        tableView.endUpdates();
+    private var showEndDate = false;
+    
+    private func toggleDate(date: Bool) -> Bool {
+        return !date;
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -37,20 +42,42 @@ class TableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1;
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 2;
+        return 4;
     }
     
+    // when title row is selected, the startDate bool is flipped
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.row == 0) {
-            toggleStartDate();
+            showStartDate = toggleDate(date: showStartDate);
+        }
+        else if (indexPath.row == 2) {
+            showEndDate = toggleDate(date: showEndDate)
         }
         tableView.deselectRow(at: indexPath, animated: true);
+        tableView.beginUpdates();
+        tableView.endUpdates();
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (showStartDate == false && indexPath.row == 1) {
+            return 0;
+        }
+        else if (showEndDate == false && indexPath.row == 3) {
+            return 0;
+        }
+        else {
+            if (indexPath.row == 1 || indexPath.row == 3) {
+                return 218;
+            }
+            else {
+                tableView.rowHeight = UITableViewAutomaticDimension;
+                return tableView.rowHeight;
+            }
+        }
     }
 
     /*
