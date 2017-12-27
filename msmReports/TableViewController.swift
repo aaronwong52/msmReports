@@ -18,9 +18,25 @@ class TableViewController: UITableViewController {
     }
     @IBAction func endDatePicker(_ sender: Any) {
     }
+    
+    @IBOutlet weak var Label_33: UILabel!
+    @IBOutlet weak var Label_52: UILabel!
+    @IBOutlet weak var Label_58: UILabel!
+    @IBOutlet weak var Label_155: UILabel!
+    @IBOutlet weak var Label_251: UILabel!
+    @IBOutlet weak var Label_271: UILabel!
+    
+    @IBAction func Stepper33_change(_ sender: UIStepper) {Label_33.text = sender.value.description}
+    @IBAction func Stepper52_change(_ sender: UIStepper) {Label_52.text = sender.value.description}
+    @IBAction func Stepper58_change(_ sender: UIStepper) {Label_58.text = sender.value.description}
+    @IBAction func Stepper155_change(_ sender: UIStepper) {Label_155.text = sender.value.description}
+    @IBAction func Stepper251_change(_ sender: UIStepper) {Label_251.text = sender.value.description}
+    @IBAction func Stepper271_change(_ sender: UIStepper) {Label_271.text = sender.value.description}
+    
     private var showStartDate = false;
     private var showEndDate = false;
     private var showWalkthrough = false;
+    private var showPianos = false;
     
     private func toggler(cell: Bool) -> Bool {
         return !cell;
@@ -46,29 +62,29 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5;       // make sure to update this continually
+        return 12;       // make sure to update this continually
     }
     
     // when title row is selected, the startDate bool is flipped
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.row == 0) {
-            showStartDate = toggler(cell: showStartDate);
+        if (indexPath.row == 0) {showStartDate = toggler(cell: showStartDate)}
+        else if (indexPath.row == 2) {showEndDate = toggler(cell: showEndDate)}
+        else if (indexPath.row == 4) {
+            showWalkthrough = toggler(cell:showWalkthrough);
+            if (showPianos) {showPianos = toggler(cell: showPianos)};
         }
-        else if (indexPath.row == 2) {
-            showEndDate = toggler(cell: showEndDate)
-        }
+        else if (indexPath.row == 5) {showPianos = toggler(cell: showPianos)}
+        
         tableView.deselectRow(at: indexPath, animated: true);
         tableView.beginUpdates();
         tableView.endUpdates();
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (showStartDate == false && indexPath.row == 1) {
-            return 0;
-        }
-        else if (showEndDate == false && indexPath.row == 3) {
-            return 0;
-        }
+        if (showStartDate == false && indexPath.row == 1) {return 0}
+        else if (showEndDate == false && indexPath.row == 3) {return 0}
+        else if (showWalkthrough == false && indexPath.row == 5) {return 0}
+        else if (showPianos == false && (indexPath.row > 5 && indexPath.row < 12)) {return 0}
         else {
             if (indexPath.row == 1 || indexPath.row == 3) {
                 return 218;
