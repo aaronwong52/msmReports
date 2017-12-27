@@ -37,10 +37,10 @@ class TableViewController: UITableViewController {
     private var showEndDate = false;
     private var showWalkthrough = false;
     private var showPianos = false;
+    private var showChairs = false;
     
-    private func toggler(cell: Bool) -> Bool {
-        return !cell;
-    }
+    private func toggler(cell: Bool) -> Bool {return !cell}
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Uncomment the following line to preserve selection between presentations
@@ -62,7 +62,7 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 12;       // make sure to update this continually
+        return 13;       // make sure to update this continually
     }
     
     // when title row is selected, the startDate bool is flipped
