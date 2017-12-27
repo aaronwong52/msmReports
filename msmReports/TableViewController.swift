@@ -15,15 +15,15 @@ class TableViewController: UITableViewController {
         let date = DateFormatter();
         date.dateStyle = DateFormatter.Style.short;
         date.timeStyle = DateFormatter.Style.short;
-        
     }
     @IBAction func endDatePicker(_ sender: Any) {
     }
     private var showStartDate = false;
     private var showEndDate = false;
+    private var showWalkthrough = false;
     
-    private func toggleDate(date: Bool) -> Bool {
-        return !date;
+    private func toggler(cell: Bool) -> Bool {
+        return !cell;
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,16 +46,16 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4;
+        return 5;       // make sure to update this continually
     }
     
     // when title row is selected, the startDate bool is flipped
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.row == 0) {
-            showStartDate = toggleDate(date: showStartDate);
+            showStartDate = toggler(cell: showStartDate);
         }
         else if (indexPath.row == 2) {
-            showEndDate = toggleDate(date: showEndDate)
+            showEndDate = toggler(cell: showEndDate)
         }
         tableView.deselectRow(at: indexPath, animated: true);
         tableView.beginUpdates();
