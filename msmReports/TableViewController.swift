@@ -26,12 +26,33 @@ class TableViewController: UITableViewController {
     @IBOutlet weak var Label_251: UILabel!
     @IBOutlet weak var Label_271: UILabel!
     
+    @IBOutlet weak var Chair_33: UILabel!
+    @IBOutlet weak var Chair_52: UILabel!
+    @IBOutlet weak var Chair_54: UILabel!
+    @IBOutlet weak var Chair_56: UILabel!
+    @IBOutlet weak var Chair_58: UILabel!
+    
+    @IBOutlet weak var Stand_52: UILabel!
+    @IBOutlet weak var Stand_54: UILabel!
+    @IBOutlet weak var Stand_56: UILabel!
+    @IBOutlet weak var Stand_58: UILabel!
+    
     @IBAction func Stepper33_change(_ sender: UIStepper) {Label_33.text = sender.value.description}
     @IBAction func Stepper52_change(_ sender: UIStepper) {Label_52.text = sender.value.description}
     @IBAction func Stepper58_change(_ sender: UIStepper) {Label_58.text = sender.value.description}
     @IBAction func Stepper155_change(_ sender: UIStepper) {Label_155.text = sender.value.description}
     @IBAction func Stepper251_change(_ sender: UIStepper) {Label_251.text = sender.value.description}
     @IBAction func Stepper271_change(_ sender: UIStepper) {Label_271.text = sender.value.description}
+    
+    @IBAction func Stepper_33_chairs(_ sender: UIStepper) {Chair_33.text = sender.value.description}
+    @IBAction func Stepper_52_chairs(_ sender: UIStepper) {Chair_52.text = sender.value.description}
+    @IBAction func Stepper_54_chairs(_ sender: UIStepper) {Chair_54.text = sender.value.description}
+    @IBAction func Stepper_56_chairs(_ sender: UIStepper) {Chair_56.text = sender.value.description}
+    @IBAction func Stepper_58_chairs(_ sender: UIStepper) {Chair_58.text = sender.value.description}
+    @IBAction func Stepper_52_stands(_ sender: UIStepper) {Stand_52.text = sender.value.description}
+    @IBAction func Stepper_54_stands(_ sender: UIStepper) {Stand_54.text = sender.value.description}
+    @IBAction func Stepper_56_stands(_ sender: UIStepper) {Stand_56.text = sender.value.description}
+    @IBAction func Stepper_58_stands(_ sender: UIStepper) {Stand_58.text = sender.value.description}
     
     private var showStartDate = false;
     private var showEndDate = false;
@@ -62,7 +83,7 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 13;       // make sure to update this continually
+        return 18;       // make sure to update this continually
     }
     
     // when title row is selected, the startDate bool is flipped
@@ -72,9 +93,10 @@ class TableViewController: UITableViewController {
         else if (indexPath.row == 4) {
             showWalkthrough = toggler(cell:showWalkthrough);
             if (showPianos) {showPianos = toggler(cell: showPianos)};
+            if (showChairs) {showChairs = toggler(cell:showChairs)};
         }
         else if (indexPath.row == 5) {showPianos = toggler(cell: showPianos)}
-        
+        else if (indexPath.row == 12) {showChairs = toggler(cell:showChairs)}
         tableView.deselectRow(at: indexPath, animated: true);
         tableView.beginUpdates();
         tableView.endUpdates();
@@ -83,8 +105,9 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (showStartDate == false && indexPath.row == 1) {return 0}
         else if (showEndDate == false && indexPath.row == 3) {return 0}
-        else if (showWalkthrough == false && indexPath.row == 5) {return 0}
+        else if (showWalkthrough == false && (indexPath.row == 5 || indexPath.row == 12)) {return 0}
         else if (showPianos == false && (indexPath.row > 5 && indexPath.row < 12)) {return 0}
+        else if (showChairs == false && (indexPath.row > 12 && indexPath.row < 18)) {return 0}
         else {
             if (indexPath.row == 1 || indexPath.row == 3) {
                 return 218;
